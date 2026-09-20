@@ -1,0 +1,34 @@
+{
+  "archive_bytes": 70763455,
+  "archive_relative_path": "data/cache/BSR_bsds500.tgz",
+  "archive_sha256": "97e49d31764f3912f0c4122707d53062ac9e783ba0f095e447a4d53c1a41af8e",
+  "benchmark_rule": "Tune only on train/validation; run fixed parameters once on test; report the complete selected metric set.",
+  "citation": {
+    "authors": "P. Arbelaez, M. Maire, C. Fowlkes, and J. Malik",
+    "doi": "10.1109/TPAMI.2010.161",
+    "issue": 5,
+    "journal": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+    "pages": "898-916",
+    "title": "Contour Detection and Hierarchical Image Segmentation",
+    "volume": 33,
+    "year": 2011
+  },
+  "downloaded_utc": "2026-09-17T06:42:54.778424+00:00",
+  "extracted_relative_path": "data/raw/BSDS500_official_2013",
+  "ground_truth_counts": {
+    "test": 200,
+    "train": 200,
+    "val": 100
+  },
+  "image_counts": {
+    "test": 200,
+    "train": 200,
+    "val": 100
+  },
+  "name": "Berkeley Segmentation Data Set and Benchmarks 500",
+  "redistribution_policy": "Dataset files stay in ignored local data directories; only this manifest is versioned.",
+  "release": "January 2013 resource update",
+  "schema_version": 1,
+  "source_page": "https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/resources.html",
+  "source_url": "https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/BSR/BSR_bsds500.tgz"
+}

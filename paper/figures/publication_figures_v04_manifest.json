@@ -1,0 +1,13 @@
+{
+  "generator": "paper\\figures\\publication_figures_v04.py",
+  "generator_sha256": "b30590e5f65b9b26d3bbbb849cb9e5b8db8811ce7e2a97d7740625216fd57c4d",
+  "heldout_inference_sha256": "6a5c41b4bb8b5beda66cf3bc338b30ba9bcef9d59577a644a8a6e700e06ed402",
+  "layout": "publication v0.4; typography enlarged; values unchanged",
+  "outputs": [
+    "fig3_family_gap",
+    "fig4_gap_heatmap",
+    "fig5_severity_trends",
+    "fig6_gt_contrast"
+  ],
+  "validation_inference_sha256": "d9b054c557b890825fd33fedaa27027287a3caf6f871ce634d88d293c0def4ad"
+}

@@ -1,0 +1,47 @@
+{
+  "analysis_script_sha256": "420ad34aed782093d35b1d708ce991b07664cdfd83061ac1e837cc17b476def2",
+  "bootstrap_iterations": 10000,
+  "created_utc": "2026-09-18T00:32:36.327661+00:00",
+  "image_level_rows": 400,
+  "input": "<repository>\\experiments\\runs\\bsds500_multicorruption_v2_validation_10x160_strict_sensitivity_r1.jsonl",
+  "input_sha256": "e0e188fe71da9b4b7faa8ea61387d94aeaf77420c046694496571aaec36aea32",
+  "pairs": 560,
+  "primary_variants": [
+    "clerg-strict",
+    "adams-strict",
+    "fan2005-strict",
+    "levelset-strict"
+  ],
+  "random_seed": 20260917,
+  "record_schema_versions": [
+    2
+  ],
+  "records": 1160,
+  "run_context": {
+    "actual_shapes": [
+      [
+        107,
+        160
+      ],
+      [
+        160,
+        107
+      ]
+    ],
+    "analysis_role": "secondary_sensitivity",
+    "config_path": "configs/bsds500_multicorruption_v2_validation_10x160_strict_sensitivity_r1.json",
+    "config_sha256": "b2e330a27fe585572d7089bf2f1a678ea11cdce6c655a1c3214a51c4d1865c26",
+    "configured_max_dimension": 160,
+    "dataset_manifest": "data/manifests/bsds500_official_2013_files_v2.json",
+    "dataset_manifest_sha256": "c6a49b978ef2df82b05bbb12c7a55e03e8778f96c4a29aeb15760acbb83c3418",
+    "ground_truth_references_per_image": [
+      5,
+      6,
+      7
+    ],
+    "image_count": 10,
+    "interpretation": "schema-v2 strict-manifest secondary seed-detector sensitivity experiment on ten explicit BSDS500 validation images; not an official BSDS500 test-set benchmark result",
+    "split": "val"
+  },
+  "sign_flip_permutations": 100000
+}

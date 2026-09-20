@@ -1,0 +1,44 @@
+{
+  "analysis_script_sha256": "6782e3fd63d39b897cc155f8e7caf0702c8c256dbc15da6036b78f8f51b5be53",
+  "bootstrap_iterations": 10000,
+  "created_utc": "2026-09-17T23:40:25.460334+00:00",
+  "image_level_rows": 400,
+  "input": "<repository>\\experiments\\runs\\bsds500_multicorruption_v2_validation_10x160_r2.jsonl",
+  "input_sha256": "f4739c52849a7ed4d8995c5ac1cd3d142ed722f2edd398493e64092555df824a",
+  "pairs": 560,
+  "primary_variants": [
+    "clerg-gaussian1",
+    "adams-gaussian2",
+    "fan2005-gaussian2",
+    "levelset-gaussian2"
+  ],
+  "random_seed": 20260917,
+  "record_schema_versions": [
+    2
+  ],
+  "records": 1160,
+  "run_context": {
+    "actual_shapes": [
+      [
+        107,
+        160
+      ],
+      [
+        160,
+        107
+      ]
+    ],
+    "config_path": "configs/bsds500_multicorruption_v2_validation_10x160_r2.json",
+    "config_sha256": "c0fa8ca3965b7120ece77cce8ec905d2e911cea06d3835c82ed14dee2bd9b5a2",
+    "configured_max_dimension": 160,
+    "ground_truth_references_per_image": [
+      5,
+      6,
+      7
+    ],
+    "image_count": 10,
+    "interpretation": "schema-v2 strict-manifest multi-corruption development experiment on ten explicit BSDS500 validation images; not an official BSDS500 test-set benchmark result",
+    "split": "val"
+  },
+  "sign_flip_permutations": 100000
+}

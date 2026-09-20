@@ -1,0 +1,170 @@
+{
+  "schema_version": 2,
+  "dataset_root": "data/raw/BSDS500_official_2013/BSR/BSDS500/data",
+  "dataset_manifest": "data/manifests/bsds500_official_2013_files_v2.json",
+  "split": "test",
+  "max_dimension": 160,
+  "variants": [
+    {
+      "id": "clerg-gaussian1",
+      "algorithm": {
+        "name": "clerg",
+        "eps": 1.0,
+        "smooth_iters": 0
+      },
+      "seed_strategy": {
+        "name": "gaussian_strict",
+        "sigma": 1.0
+      }
+    },
+    {
+      "id": "adams-gaussian2",
+      "algorithm": {
+        "name": "adams1994"
+      },
+      "seed_strategy": {
+        "name": "gaussian_strict",
+        "sigma": 2.0
+      }
+    },
+    {
+      "id": "fan2005-gaussian2",
+      "algorithm": {
+        "name": "fan2005"
+      },
+      "seed_strategy": {
+        "name": "gaussian_strict",
+        "sigma": 2.0
+      }
+    },
+    {
+      "id": "levelset-gaussian2",
+      "algorithm": {
+        "name": "levelset2004"
+      },
+      "seed_strategy": {
+        "name": "gaussian_strict",
+        "sigma": 2.0
+      }
+    }
+  ],
+  "corruptions": [
+    {
+      "family": "gaussian_noise",
+      "replicates": 2,
+      "base_seed": 20260917,
+      "severities": [
+        {
+          "id": "sigma_2",
+          "params": {
+            "sigma": 2.0
+          }
+        },
+        {
+          "id": "sigma_8",
+          "params": {
+            "sigma": 8.0
+          }
+        }
+      ]
+    },
+    {
+      "family": "gaussian_blur",
+      "replicates": 1,
+      "severities": [
+        {
+          "id": "sigma_0p5",
+          "params": {
+            "sigma_px": 0.5,
+            "truncate": 4.0,
+            "boundary_mode": "reflect"
+          }
+        },
+        {
+          "id": "sigma_1p5",
+          "params": {
+            "sigma_px": 1.5,
+            "truncate": 4.0,
+            "boundary_mode": "reflect"
+          }
+        }
+      ]
+    },
+    {
+      "family": "salt_pepper",
+      "replicates": 2,
+      "base_seed": 20260918,
+      "severities": [
+        {
+          "id": "amount_0p005",
+          "params": {
+            "amount": 0.005,
+            "salt_fraction": 0.5,
+            "sampling": "without_replacement"
+          }
+        },
+        {
+          "id": "amount_0p02",
+          "params": {
+            "amount": 0.02,
+            "salt_fraction": 0.5,
+            "sampling": "without_replacement"
+          }
+        }
+      ]
+    },
+    {
+      "family": "jpeg",
+      "replicates": 1,
+      "severities": [
+        {
+          "id": "quality_90",
+          "params": {
+            "quality": 90,
+            "subsampling": 0,
+            "optimize": false,
+            "progressive": false
+          }
+        },
+        {
+          "id": "quality_50",
+          "params": {
+            "quality": 50,
+            "subsampling": 0,
+            "optimize": false,
+            "progressive": false
+          }
+        }
+      ]
+    },
+    {
+      "family": "brightness_scale",
+      "replicates": 1,
+      "severities": [
+        {
+          "id": "factor_0p8",
+          "params": {
+            "factor": 0.8,
+            "rounding": "nearest_even",
+            "clipping": "uint8_0_255"
+          }
+        },
+        {
+          "id": "factor_1p2",
+          "params": {
+            "factor": 1.2,
+            "rounding": "nearest_even",
+            "clipping": "uint8_0_255"
+          }
+        }
+      ]
+    }
+  ],
+  "seed_modes": [
+    "fixed_clean",
+    "recomputed"
+  ],
+  "interpretation": "schema-v2 strict-manifest BSDS500 test-split confirmatory experiment on all 200 test images; single prespecified run; not to be re-tuned after inspection",
+  "output": "experiments/runs/bsds500_multicorruption_v2_test_200x160_r1.jsonl",
+  "analysis_role": "primary"
+}

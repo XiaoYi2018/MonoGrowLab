@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "monogrowlab"
+version = "0.1.0"
+description = "Reproducible experiments for extrema-seeded monotone region growing"
+readme = "README.md"
+requires-python = ">=3.10.12"
+dependencies = [
+    "numpy>=1.24",
+    "Pillow>=10.0",
+    "scipy>=1.10",
+    "scikit-image>=0.21",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.4"]
+analysis = ["pandas>=2.0", "matplotlib>=3.7"]
+
+[project.scripts]
+monogrowlab = "monogrowlab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

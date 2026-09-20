@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-09-19T08:12:55.9112154+03:00",
+  "config": "configs/bsds500_multicorruption_v2_test_200x160_r1.json",
+  "records": 23200,
+  "expected_records": 23200,
+  "stderr_bytes": 0,
+  "run_bytes": 42672372,
+  "run_sha256": "9eab1ceca545977a1f87a40238354b30aefe385e44743d8217acc17caba2d693",
+  "meta_sha256": "41c636cf2cd1f89c4967b721b65e89b7bb44cd37565d5efbf5a3ccaceb3a4c74",
+  "dataset_integrity": {
+    "manifest_schema_version": 2,
+    "file_count": 1000,
+    "per_file_hashes_verified": true
+  },
+  "resume": {
+    "written": 0,
+    "skipped": 23200,
+    "total_records": 23200,
+    "exit_code": 0,
+    "immutable_output_unchanged": true
+  },
+  "csv_rows": {
+    "paired_records": 11200,
+    "image_level_effects": 8000,
+    "inference": 420,
+    "group_summary": 84,
+    "paired_attribution": 40
+  },
+  "report_html": {
+    "bytes": 15408,
+    "sha256": "6f5e900339784e142bb98dda9c1ecaa97715fc5df213bb709dd66daf8f903d6b"
+  },
+  "preregistered_verdict": {
+    "rule": "variant passes iff the sign is positive and Holm-adjusted p < 0.05; a family is supported iff at least 3 of 4 variants pass; an overall statement requires at least 4 of 5 supported families",
+    "families_supported": 5,
+    "families_reversed": 0,
+    "families_indeterminate": 0,
+    "overall_statement_licensed": true
+  },
+  "problems": []
+}

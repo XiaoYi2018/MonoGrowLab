@@ -1,0 +1,49 @@
+{
+  "analysis_script_sha256": "420ad34aed782093d35b1d708ce991b07664cdfd83061ac1e837cc17b476def2",
+  "bootstrap_iterations": 10000,
+  "created_utc": "2026-09-19T04:33:10.796754+00:00",
+  "image_level_rows": 8000,
+  "input": "<repository>\\experiments\\runs\\bsds500_multicorruption_v2_test_200x160_r1.jsonl",
+  "input_sha256": "9eab1ceca545977a1f87a40238354b30aefe385e44743d8217acc17caba2d693",
+  "pairs": 11200,
+  "primary_variants": [
+    "clerg-gaussian1",
+    "adams-gaussian2",
+    "fan2005-gaussian2",
+    "levelset-gaussian2"
+  ],
+  "random_seed": 20260917,
+  "record_schema_versions": [
+    2
+  ],
+  "records": 23200,
+  "run_context": {
+    "actual_shapes": [
+      [
+        107,
+        160
+      ],
+      [
+        160,
+        107
+      ]
+    ],
+    "analysis_role": "primary",
+    "config_path": "configs/bsds500_multicorruption_v2_test_200x160_r1.json",
+    "config_sha256": "388ae01cfbcae627343afbc00a4fb3d4694e49940560e51e0b5d9aa22ae5c71c",
+    "configured_max_dimension": 160,
+    "dataset_manifest": "data/manifests/bsds500_official_2013_files_v2.json",
+    "dataset_manifest_sha256": "c6a49b978ef2df82b05bbb12c7a55e03e8778f96c4a29aeb15760acbb83c3418",
+    "ground_truth_references_per_image": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "image_count": 200,
+    "interpretation": "schema-v2 strict-manifest BSDS500 test-split confirmatory experiment on all 200 test images; single prespecified run; not to be re-tuned after inspection",
+    "split": "test"
+  },
+  "sign_flip_permutations": 100000
+}

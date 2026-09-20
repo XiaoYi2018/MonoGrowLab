@@ -1,0 +1,52 @@
+{
+  "config_path": "configs/bsds500_multicorruption_v2_validation_10x160_r2.json",
+  "config_sha256": "c0fa8ca3965b7120ece77cce8ec905d2e911cea06d3835c82ed14dee2bd9b5a2",
+  "created_utc": "2026-09-17T18:04:53.901166+00:00",
+  "dataset_integrity": {
+    "file_count": 1000,
+    "manifest_schema_version": 2,
+    "per_file_hashes_verified": true
+  },
+  "dataset_manifest": "data/manifests/bsds500_official_2013_files_v2.json",
+  "dataset_manifest_sha256": "c6a49b978ef2df82b05bbb12c7a55e03e8778f96c4a29aeb15760acbb83c3418",
+  "dataset_root": "data/raw/BSDS500_official_2013/BSR/BSDS500/data",
+  "dependencies": {
+    "numpy": "2.1.3",
+    "pillow": "11.1.0",
+    "scikit_image": "0.25.0",
+    "scipy": "1.15.3"
+  },
+  "interpretation": "schema-v2 strict-manifest multi-corruption development experiment on ten explicit BSDS500 validation images; not an official BSDS500 test-set benchmark result",
+  "legacy_hashes": {
+    "clerg_e.py": "0fbd77bfe1cdb8d96238546f962ea3e8638c5d4aacba8d88eb5fd7e1348f6c9f",
+    "esr.py": "fd6eb6c2fac04ff66f5f73d44aad067a2fad3ffd3a3cf9ae79a72345f2a0f27d",
+    "evaluation_d.py": "0b3e29911e9e671ae78604fb7d168e1ef5875f804e9521a1c46ee6db731f66a2",
+    "evaluation_dm_new.py": "e3fc3ae6553154b66fa3c19b553701a0e79bf7b8125f1c53af6bba7bda5ca573",
+    "evaluation_f.py": "b72f12990f6b679c461f092a3f2ceb920ea44af7354b8e498155f38dd83bd76c",
+    "evaluation_ssim.py": "aeeba61207425c19eb918130197b70767fa1fdecca5ca28c41637e99552e7c41",
+    "extrema_single_symm_scan.py": "2a78a699b3753678db786f013c395598cf8e1a16137ef6f55fc3c25e0aa4fb69",
+    "ppi.py": "addf075923f3c83e7a537e6b9566e1ecb0cc9dec967362396ddeeb54b4830b5f",
+    "run_noise_stability_test.py": "a61375b990c78ec3959c4dd82310ba1a7d06f9299981829ae789ead574986e29",
+    "run_srg_batch_test03.py": "afc5e9d4295cfd3df131d1ad7b66e149b67c2e22aa895bb563af98833fc32196",
+    "srg_2004_level_set.py": "5d6a027c37fd1d6483a5afea5285893841d7c8a3dd08d2aa5f2ac8720457259d",
+    "srg_adams1994_full_quasi.py": "0510a564b61362951eec509a1af68f48e4cccb668c02bc693e32d0f8c43f6217",
+    "srg_fan2005_regular.py": "80995ad0a075d8f3614571d4b17858f991b37e1d3a881de14446f4d4b6803451",
+    "srg_fan2015_stabilized.py": "305a03514af8e303c28a44aae21bde23dfe6d4dd402a73540cbf7ee0ebf55c58"
+  },
+  "package_hashes": {
+    "src/monogrowlab/__init__.py": "0fdb121bf937733aa0cf919dc387954a36515e652f09a66f1532e53e0c9f2fda",
+    "src/monogrowlab/corruptions.py": "5d6fce3fd7e7fdc159b1246fd8620fa1f02b1b44fa67b695b0c698bc95f3404f",
+    "src/monogrowlab/corruptions_v2.py": "8ef87851a37b19d1135ecf4e0be187c5f57e1afa285464a484b8d5f21de8c37d",
+    "src/monogrowlab/datasets.py": "f32e504ae46d7e742cc22027195875c0419279288863507cd6e07e69600080de",
+    "src/monogrowlab/evaluation.py": "7899dc0ae4eee989d8b03a5621c498adfd34a023002ff6d8b4689e65ab2929b6",
+    "src/monogrowlab/experiment_schema.py": "767ce0104bf8faea217e28dfbbd7922cf1c8e34d604f5983b49bad79e5d53b37",
+    "src/monogrowlab/legacy_adapter.py": "21d2714fbc82fa73431eae9309a1265f4c01f1464b8a83121467fb7793aa809f",
+    "src/monogrowlab/metrics.py": "84af7371e78ab839f79fd677e09277c09389a16725f727380cd80d753f86d7e9",
+    "src/monogrowlab/reporting.py": "ce4fe5ecd6b600dd0ae8e2f28ca4d8cb89fe26b08adf56b25824ac4f24a7cf23",
+    "src/monogrowlab/synthetic.py": "5360680ed8c13c1c9ae0f8acb5ca3f0762370e6df64963a156460d3178c865e4"
+  },
+  "platform": "Windows-10-10.0.19045-SP0",
+  "python": "3.13.5",
+  "runner_sha256": "a96ea48a4a7a5130f70f029dbb575c0b2ea05f52aba652e2e71762fef0838ba6",
+  "schema_version": 2
+}

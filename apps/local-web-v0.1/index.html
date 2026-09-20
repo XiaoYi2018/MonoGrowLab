@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>MonoGrowLab · Local evaluation</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="MonoGrowLab home"><span class="brand-mark" aria-hidden="true">M</span><span>MonoGrowLab<small>LOCAL EVALUATION</small></span></a>
+    <div class="connection"><span id="connection-dot" class="dot"></span><span id="connection-status" role="status">Connecting…</span><span id="version" class="version"></span></div>
+  </header>
+  <div class="page-heading"><div><p class="eyebrow">SEGMENTATION · PERTURBATION · STABILITY</p><h1>A closer look at robustness.</h1><p>Compare how segmentation changes when the input changes.</p></div><span class="local-badge">Local workspace</span></div>
+  <div id="connection-error" class="notice error page-notice" role="alert" hidden></div>
+  <main class="layout">
+    <aside class="configuration" aria-label="Evaluation configuration">
+      <form id="run-form" class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">CONFIGURE</p><h2>New evaluation</h2></div><span class="step-marker" aria-hidden="true">01</span></div>
+        <div class="form-section"><label class="field-label" for="run-label">Run label <span class="optional">optional</span></label><input id="run-label" name="label" type="text" maxlength="80" placeholder="e.g. Validation · noise check" autocomplete="off"></div>
+        <fieldset class="form-section"><legend><span class="number">1</span> Images <span id="selection-count" class="count">0 selected</span></legend>
+          <div class="two-fields"><label>Dataset split<select id="split"><option value="val">Validation</option><option value="train">Training</option></select></label><label>Max dimension<select id="max-dimension"><option value="64">64 px</option><option value="96">96 px</option><option value="128">128 px</option><option value="160" selected>160 px</option><option value="256">256 px</option></select></label></div>
+          <p class="hint">Choose 2–20 images. Smaller dimensions finish faster.</p>
+          <label class="sr-only" for="image-search">Filter image IDs</label><input id="image-search" type="search" placeholder="Find an image ID…" autocomplete="off">
+          <div class="image-toolbar"><button id="first-two" type="button" class="text-button">Select first 2</button><button id="clear-images" type="button" class="text-button">Clear selection</button></div>
+          <div id="image-grid" class="image-grid" aria-label="Available images"><p class="hint">Loading available images…</p></div><p id="image-note" class="hint" role="status"></p>
+        </fieldset>
+        <fieldset class="form-section"><legend><span class="number">2</span> Algorithms</legend><div id="variant-options" class="option-list"></div><p class="hint">Each selected algorithm is compared under the same conditions.</p></fieldset>
+        <fieldset class="form-section"><legend><span class="number">3</span> Perturbations</legend><div id="family-options" class="family-list"></div><p class="hint">Two severity values per family. JPEG uses quality: lower means stronger corruption.</p></fieldset>
+        <fieldset class="form-section"><legend><span class="number">4</span> Run settings</legend><div class="two-fields"><label>Seed policy<select id="seed-policy"><option value="gaussian">Gaussian</option><option value="strict">Strict</option></select></label><label>Random replicates<select id="replicates"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></label></div><p class="hint">Seed policy controls seed handling. Replicates repeat stochastic perturbations; they do not increase the image sample size.</p></fieldset>
+        <div class="run-footer"><p id="run-summary" class="run-summary">Select images, an algorithm, and a perturbation.</p><div id="form-error" class="notice error" role="alert" hidden></div><button id="start-run" type="submit" class="primary" disabled>Start evaluation <span aria-hidden="true">→</span></button><p id="run-reason" class="hint">Checking local runner…</p><p class="hint subtle">Closing this tab does not stop a run. Evaluation output is separate from frozen research results.</p></div>
+      </form>
+      <section class="research-links" aria-labelledby="research-title"><h3 id="research-title">Existing research results <span>(read-only)</span></h3><div id="frozen-reports"><p class="hint">Loading reports…</p></div></section>
+    </aside>
+    <section id="workspace" class="workspace" tabindex="-1" aria-label="Evaluation workspace">
+      <section class="panel history-panel" aria-labelledby="history-title"><div class="panel-heading"><div><p class="eyebrow">WORKSPACE</p><h2 id="history-title">Evaluations <span id="job-count" class="count">0</span></h2></div><button id="refresh" type="button" class="secondary">Refresh</button></div><div id="job-history" class="job-history"><p class="hint">Loading run history…</p></div></section>
+      <section id="empty-state" class="panel empty-state"><div class="empty-symbol" aria-hidden="true">↗</div><p class="eyebrow">YOUR FIRST EVALUATION</p><h2>Start with a small comparison.</h2><p>Select two images, keep the default algorithm and Gaussian noise, then start an evaluation. Progress and results will appear here.</p><div class="empty-steps"><span><b>01</b> Choose inputs</span><span><b>02</b> Run locally</span><span><b>03</b> Inspect results</span></div></section>
+      <section id="job-detail" hidden aria-label="Selected evaluation">
+        <div class="panel detail-panel"><div class="panel-heading"><div class="title-wrap"><p class="eyebrow">SELECTED EVALUATION</p><h2 id="job-title"></h2><p id="job-date" class="hint"></p></div><span id="job-status" class="status-badge"></span></div>
+          <div class="progress-label"><span id="job-stage" role="status"></span><span id="progress-text"></span></div><progress id="job-progress" max="100" value="0" aria-label="Evaluation progress"></progress>
+          <div id="job-error" class="notice error" role="alert" hidden></div>
+          <div class="metrics"><div><span>Image n</span><strong id="metric-images">—</strong></div><div><span>Algorithms</span><strong id="metric-variants">—</strong></div><div><span>Perturbation families</span><strong id="metric-families">—</strong></div><div><span>Minimum raw p</span><strong id="metric-p">—</strong></div></div>
+          <div id="job-actions" class="actions"></div>
+        </div>
+        <section class="panel results-panel" aria-labelledby="results-title"><div class="panel-heading"><div><p class="eyebrow">MEASURED CHANGE</p><h2 id="results-title">Stability comparison</h2></div><span class="table-tag">ARI</span></div><p class="explanation">Stability measures agreement between segmentations when the input is perturbed. It is not agreement with a human annotation, and does not establish segmentation quality.</p><div id="results-empty" class="inline-empty">Results will appear after the evaluation finishes.</div><div id="results-table-wrap" class="table-scroll" hidden><table><caption class="sr-only">Delta stability ARI by algorithm and perturbation family, with 95 percent confidence intervals and Holm-adjusted p values</caption><thead><tr><th scope="col">Algorithm / family</th><th scope="col">Δ stability ARI</th><th scope="col">95% CI</th><th scope="col">Holm p</th></tr></thead><tbody id="results-body"></tbody></table></div><p id="inference-note" class="hint result-note">Images are the sampling units. With two images, the minimum raw p is 0.5. Interface colors do not indicate statistical significance.</p></section>
+        <section id="previews-panel" class="panel" hidden aria-labelledby="previews-title"><div class="panel-heading"><div><p class="eyebrow">VISUAL INSPECTION</p><h2 id="previews-title">Run previews</h2></div></div><div id="previews" class="previews"></div></section>
+        <details class="panel log-panel"><summary>Runner log <span class="hint">Latest output</span></summary><pre id="log-tail">No log output available.</pre></details>
+      </section>
+      <footer class="workspace-footer">Local runs · No automatic experiments · Frozen results stay read-only</footer>
+    </section>
+  </main>
+</body>
+</html>

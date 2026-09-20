@@ -1,0 +1,64 @@
+{
+  "cases": {
+    "brightness_factor0p8": {
+      "family": "brightness_scale",
+      "output_sha256": "88ff83317db833bbee3e331a48e3ccdbc1dfc7f05f8a5eace620db979a7e5bb2",
+      "params": {
+        "clipping": "uint8_0_255",
+        "factor": 0.8,
+        "rounding": "nearest_even"
+      },
+      "seed": null
+    },
+    "gaussian_blur_sigma1": {
+      "family": "gaussian_blur",
+      "output_sha256": "5793325ed9d27629f259f1990af81b53d469687479e210e6f73751635a79eeea",
+      "params": {
+        "boundary_mode": "reflect",
+        "sigma_px": 1.0,
+        "truncate": 4.0
+      },
+      "seed": null
+    },
+    "gaussian_noise_sigma5_seed11": {
+      "family": "gaussian_noise",
+      "output_sha256": "f54f228c88abb96d56fbf001b5f0bed52faf1505588c7b8a782265ec4e1b0e14",
+      "params": {
+        "sigma": 5.0
+      },
+      "seed": 11
+    },
+    "jpeg_quality70": {
+      "family": "jpeg",
+      "output_sha256": "a10e5bbbbbae25fa1b00efca0dcbaa217811f007ac5c6726c1312b58f7c508a6",
+      "params": {
+        "optimize": false,
+        "progressive": false,
+        "quality": 70,
+        "subsampling": 0
+      },
+      "seed": null
+    },
+    "salt_pepper_amount0p1_seed12": {
+      "family": "salt_pepper",
+      "output_sha256": "bb2833f67c34182b816f875c18603dd4e384e25eb8f9e115868fb4264ce5ca92",
+      "params": {
+        "amount": 0.1,
+        "salt_fraction": 0.5,
+        "sampling": "without_replacement"
+      },
+      "seed": 12
+    }
+  },
+  "fixture": {
+    "definition": "(arange(32*24).reshape(24,32) % 256).astype(uint8)",
+    "sha256": "f9fc459d525837dda6a6c64ecd97d74ce84aeb8f03de3aec987060e41f3562ca"
+  },
+  "reference_environment": {
+    "numpy": "2.1.3",
+    "pillow": "11.1.0",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.13.5",
+    "scipy": "1.15.3"
+  }
+}
