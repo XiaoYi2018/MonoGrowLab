@@ -99,8 +99,36 @@ def dataset_file_index(
         index[path] = row
     return index, {
         "manifest_schema_version": 2,
-        "per_file_hashes_verified": True,
+        "per_file_hashes_declared": True,
         "file_count": len(index),
+    }
+
+
+def verify_dataset_files(
+    dataset_root: Path,
+    index: dict[str, dict[str, Any]],
+    declaration: dict[str, Any],
+) -> dict[str, Any]:
+    """Verify every file declared by the dataset manifest before a run starts."""
+
+    root = dataset_root.resolve()
+    for relative, row in sorted(index.items()):
+        path = (root / relative).resolve()
+        try:
+            path.relative_to(root)
+        except ValueError as exc:
+            raise RuntimeError(f"dataset manifest path escapes root: {relative}") from exc
+        if not path.is_file():
+            raise FileNotFoundError(f"dataset manifest file is missing: {relative}")
+        if int(row["bytes"]) != path.stat().st_size:
+            raise RuntimeError(f"dataset file size differs from manifest: {relative}")
+        if str(row["sha256"]) != file_hash(path):
+            raise RuntimeError(f"dataset file hash differs from manifest: {relative}")
+    return {
+        **declaration,
+        "per_file_hashes_verified": True,
+        "verification_scope": "entire_manifest_before_run",
+        "verified_file_count": len(index),
     }
 
 
@@ -319,8 +347,11 @@ def main() -> int:
     if not dataset_manifest.is_file():
         raise FileNotFoundError(dataset_manifest)
     dataset_manifest_payload = json.loads(dataset_manifest.read_text(encoding="utf-8"))
-    dataset_index, dataset_integrity = dataset_file_index(
+    dataset_index, dataset_declaration = dataset_file_index(
         dataset_manifest_payload, Path(config["dataset_root"]).as_posix()
+    )
+    dataset_integrity = verify_dataset_files(
+        dataset_root, dataset_index, dataset_declaration
     )
 
     adapter = LegacyAdapter(legacy_root)

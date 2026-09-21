@@ -13,8 +13,8 @@ Their paired difference, `delta_stability_ari`, is the seed-attribution gap. The
 
 - Five deterministic corruption families with explicit units: Gaussian noise, Gaussian blur, salt-and-pepper noise, JPEG compression, and multiplicative brightness scaling.
 - Matched corruption realizations across seed policies, verified by clean- and corrupted-image hashes.
-- A fail-closed schema that rejects missing, duplicated, failed, or hash-inconsistent pairs.
-- Dataset manifests with byte sizes and SHA-256 hashes for every input image and reference segmentation.
+- A fail-closed schema that rejects incomplete configured grids, missing modes, duplicates, failures, unit mismatches, and hash-inconsistent pairs.
+- Dataset manifests with byte sizes and SHA-256 hashes for every input image and reference segmentation, verified in full before a new run starts.
 - Resumable experiment execution with immutable configuration, dependency, source, and manifest checks.
 - Image-level paired bootstrap intervals, sign-flip permutation tests, and Holm correction within each corruption family.
 - CSV, SVG/PDF/PNG, and standalone HTML outputs.
@@ -47,7 +47,7 @@ python experiments\build_bsds500_file_manifest.py `
   --output data\manifests\bsds500_official_2013_files_v2.json
 ```
 
-The download URL and archive checksum are recorded in `data/manifests/bsds500_official_2013.json`. The runner verifies the per-file manifest before starting a schema-v2 experiment.
+The download URL and archive checksum are recorded in `data/manifests/bsds500_official_2013.json`. Before a schema-v2 experiment starts, the runner verifies the size and SHA-256 of every file declared by the dataset manifest. Analysis separately reconstructs the complete expected variant × image × corruption × severity × replicate × mode grid and refuses incomplete or unexpected records.
 
 ## Command-line workflow
 
@@ -116,7 +116,7 @@ python -m unittest test_server -v
 Pop-Location
 ```
 
-The current release contains 58 core tests and 15 web-workbench tests.
+The current release contains 61 core tests and 15 web-workbench tests.
 
 ## Repository structure
 

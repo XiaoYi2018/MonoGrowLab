@@ -21,6 +21,7 @@ from monogrowlab.experiment_schema import (  # noqa: E402
     canonical_hash,
     normalized_condition,
     pair_records,
+    validate_expected_record_grid,
     validate_single_run,
     variant_label,
 )
@@ -118,6 +119,8 @@ def load_run_context(source: Path, records: list[dict[str, Any]]) -> dict[str, A
         raise RuntimeError(f"dataset manifest is missing: {manifest_path}")
     if file_hash(manifest_path) != metadata.get("dataset_manifest_sha256"):
         raise RuntimeError("dataset manifest hash differs from run metadata")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    validate_expected_record_grid(records, config, manifest)
     return {
         "config_path": config_relative,
         "config_sha256": config_hash,

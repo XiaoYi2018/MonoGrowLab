@@ -23,7 +23,7 @@ from urllib.parse import parse_qs, unquote, urlsplit
 import webbrowser
 
 APP = 'monogrowlab-local-web'
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 HERE = Path(__file__).resolve().parent
 JOB_ID = re.compile(r'run-\d{8}T\d{6}-[a-f0-9]{8}')
 VARIANTS = {'clerg': ('CLERG', 'clerg', 1.0), 'adams': ('Adams', 'adams1994', 2.0),

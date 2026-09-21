@@ -19,6 +19,8 @@ The first mode measures growth-stage sensitivity conditional on the clean seed s
 - Pilot and validation-subset outputs are not reported as official BSDS500 benchmark results.
 - Image resizing, if used, is treated as part of the experimental condition and reported explicitly.
 
+For the reported runs, images exceeding the configured maximum dimension are resized with aspect ratio preserved, bilinear interpolation, and antialiasing. Human label maps use nearest-neighbour interpolation without antialiasing. The resized RGB image is then converted to grayscale and min--max normalized per image to unsigned 8-bit values before seed extraction or corruption; a constant image maps to zero. Intensity-valued corruption parameters therefore operate on this normalized 0--255 scale.
+
 ## Variant policy
 
 The validation seed screen selected one regularized seed policy per historical growth rule:
@@ -78,3 +80,5 @@ Proceed from pilot to a larger validation run only if:
 5. no metric implementation failure or label-dependence is detected.
 
 Freeze the test protocol only after at least one non-Gaussian corruption family and the statistical summarizer pass deterministic tests. The test split is then run once under the frozen configuration.
+
+Before inference, the analyzer reconstructs the expected record grid from the configuration and dataset manifest. Every configured variant, selected image, corruption, severity, replicate, and both seed modes must be present exactly once; paired units and image hashes must also agree.

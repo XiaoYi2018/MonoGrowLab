@@ -6,6 +6,8 @@ The corruption suite is designed for paired attribution experiments, not for tra
 
 Schema-v1 Gaussian records remain immutable historical pilot data. New multi-family runs use schema version 2, a separate runner, separate configurations, and separate result files. The v2 runner refuses to append when its configuration, dataset manifest, dependencies, legacy sources, maintained package sources, or runner hash differs from the metadata that created the result file.
 
+Before any new schema-v2 record is written, the runner verifies the byte size and SHA-256 of every file declared by the dataset manifest. Images are resized before grayscale conversion: bilinear interpolation with antialiasing is used for RGB images, nearest-neighbour interpolation without antialiasing for label maps, and the resized grayscale image is min--max normalized to uint8 0--255 before corruption and seed extraction.
+
 ## Families and units
 
 | Family | Parameters | Definition |
@@ -27,7 +29,7 @@ Every v2 perturbed record contains:
 - corruption family, stable severity identifier, canonical parameter object, units, replicate, and random seed;
 - execution mode, dimensions, status, diagnostics, and evaluation metrics.
 
-Fixed and recomputed records are paired only when all condition coordinates match. Pair construction rejects missing modes, duplicates, failed records, or mismatches in configuration, algorithm, seed policy, dimensions, replicate, random seed, and image hashes.
+Fixed and recomputed records are paired only when all condition coordinates, including corruption units, match. Pair construction rejects missing modes, duplicates, failed records, or mismatches in configuration, algorithm, seed policy, dimensions, replicate, random seed, units, and image hashes. The analyzer additionally reconstructs the complete configured grid from the dataset manifest and rejects a condition even when both of its mode records are absent.
 
 ## Reference fixture
 

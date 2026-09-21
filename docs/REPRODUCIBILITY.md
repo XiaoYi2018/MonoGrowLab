@@ -12,9 +12,11 @@ The repository includes the three experiment configurations reported with MonoGr
 
 ## Integrity chain
 
-Each run metadata file records the configuration hash, dataset-manifest hash, dependency versions, package hashes, runner hash, and the hashes of the project-owned growth kernels. The schema-v2 analyzer rejects mixed configurations, missing pair members, duplicate pair members, non-success records, and mismatched clean or corrupted image hashes.
+Each run metadata file records the configuration hash, dataset-manifest hash, dependency versions, package hashes, runner hash, and the hashes of the project-owned growth kernels. For new runs, the runner verifies every manifest-declared file before execution. The schema-v2 analyzer reconstructs the complete expected grid from the configuration and dataset manifest, then rejects missing conditions, missing pair members, duplicates, non-success records, unit mismatches, and mismatched clean or corrupted image hashes.
 
-The held-out run is additionally anchored by `docs/test_split_freeze.json`, `docs/PREREGISTRATION.md`, and `docs/heldout_acceptance.json`. Source changes made after an archived run are enumerated in `docs/ARCHIVED_RUN_PROVENANCE.md`; available run-time source snapshots are under `docs/frozen_sources/`.
+The held-out run is additionally anchored by `docs/test_split_freeze.json`, `docs/PREREGISTRATION.md`, and `docs/heldout_acceptance.json`. Paths in the freeze ledger are the source coordinates recorded at freeze time, not a claim that later release files at those active paths remain byte-identical. Exact test-run snapshots of the runner, analyzer, summarizer, experiment schema, and CLI are preserved under `docs/frozen_sources/`. Source changes made after an archived run are enumerated in `docs/ARCHIVED_RUN_PROVENANCE.md`.
+
+The archived v0.1.0 metadata field `per_file_hashes_verified` predates the eager full-manifest pass introduced in v0.1.1. In those archived runs, each consumed image and annotation was checked against its manifest row before decoding; the field must not be read as evidence that unused files from other splits were pre-scanned. The manifest itself still carries byte sizes and SHA-256 values for all 1,000 files.
 
 ## Re-execution
 

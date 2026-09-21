@@ -1,6 +1,10 @@
 import unittest
 
-from monogrowlab.experiment_schema import pair_records, variant_label
+from monogrowlab.experiment_schema import (
+    pair_records,
+    validate_expected_record_grid,
+    variant_label,
+)
 
 
 def v2_record(mode, **updates):
@@ -130,6 +134,38 @@ class ExperimentSchemaTests(unittest.TestCase):
             ]
         )
         self.assertEqual(len(pairs), 2)
+
+    def test_corruption_units_must_match_within_pair(self):
+        records = complete_records()
+        records[-1]["corruption_units"] = "conflicting units"
+        with self.assertRaisesRegex(RuntimeError, "incomplete pair"):
+            pair_records(records)
+
+    def test_expected_grid_rejects_a_wholly_missing_pair(self):
+        config = {
+            "split": "val",
+            "image_ids": ["image-1"],
+            "variants": [{"id": "variant-a"}],
+            "corruptions": [
+                {
+                    "family": "gaussian_noise",
+                    "replicates": 1,
+                    "severities": [{"id": "sigma_2", "params": {"sigma": 2.0}}],
+                }
+            ],
+        }
+        manifest = {
+            "files": [
+                {"path": "images/val/image-1.jpg", "role": "image"},
+                {
+                    "path": "groundTruth/val/image-1.mat",
+                    "role": "ground_truth",
+                },
+            ]
+        }
+        validate_expected_record_grid(complete_records(), config, manifest)
+        with self.assertRaisesRegex(RuntimeError, "missing_pairs=2"):
+            validate_expected_record_grid([complete_records()[0]], config, manifest)
 
     def test_legacy_variant_fallback_is_algorithm_specific(self):
         first = {"algorithm": {"name": "adams1994"}, "seed_strategy": {"name": "strict"}}

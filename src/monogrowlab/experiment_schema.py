@@ -7,6 +7,8 @@ import json
 from collections import defaultdict
 from typing import Any, Iterable
 
+from monogrowlab.corruptions_v2 import normalize_parameters
+
 
 def canonical_json(value: Any) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
@@ -96,6 +98,157 @@ def validate_single_run(
     return observed
 
 
+def validate_expected_record_grid(
+    records: Iterable[dict[str, Any]],
+    config: dict[str, Any],
+    dataset_manifest: dict[str, Any],
+) -> None:
+    """Reject incomplete or unexpected schema-v2 experiment grids.
+
+    The expected image set is reconstructed from the versioned dataset manifest
+    using the same explicit-image and limit rules as the runner. This catches a
+    condition whose fixed and recomputed records are both absent, which pairwise
+    mode checks alone cannot detect.
+    """
+
+    records = list(records)
+    if not records:
+        raise RuntimeError("cannot validate an empty record grid")
+
+    variants = config.get("variants")
+    if not isinstance(variants, list) or not variants:
+        raise RuntimeError("configuration does not define variants")
+    variant_ids = [str(variant.get("id", "")) for variant in variants]
+    if any(not variant for variant in variant_ids) or len(set(variant_ids)) != len(
+        variant_ids
+    ):
+        raise RuntimeError("configuration variant ids are missing or duplicated")
+
+    split = str(config.get("split", ""))
+    manifest_rows = dataset_manifest.get("files")
+    if not isinstance(manifest_rows, list) or not manifest_rows:
+        raise RuntimeError("dataset manifest does not contain file rows")
+    image_prefix = f"images/{split}/"
+    truth_prefix = f"groundTruth/{split}/"
+    manifest_images = {
+        path[len(image_prefix) : -4]
+        for row in manifest_rows
+        if isinstance(row, dict)
+        and str(row.get("role", "")) == "image"
+        and (path := str(row.get("path", ""))).startswith(image_prefix)
+        and path.endswith(".jpg")
+        and "/" not in path[len(image_prefix) : -4]
+    }
+    manifest_truth = {
+        path[len(truth_prefix) : -4]
+        for row in manifest_rows
+        if isinstance(row, dict)
+        and str(row.get("role", "")) == "ground_truth"
+        and (path := str(row.get("path", ""))).startswith(truth_prefix)
+        and path.endswith(".mat")
+        and "/" not in path[len(truth_prefix) : -4]
+    }
+    if not manifest_images or manifest_images != manifest_truth:
+        raise RuntimeError(
+            "dataset manifest image/ground-truth ids are empty or inconsistent "
+            f"for split {split!r}"
+        )
+
+    configured_images = config.get("image_ids")
+    if configured_images:
+        image_ids = [str(image_id) for image_id in configured_images]
+        unknown = sorted(set(image_ids) - manifest_images)
+        if unknown:
+            raise RuntimeError(f"configured image ids are absent from manifest: {unknown[:5]}")
+    else:
+        image_ids = sorted(manifest_images)
+    if config.get("limit") is not None:
+        image_ids = image_ids[: int(config["limit"])]
+    if not image_ids or len(set(image_ids)) != len(image_ids):
+        raise RuntimeError("expected image ids are empty or duplicated")
+
+    corruption_specs = config.get("corruptions")
+    if not isinstance(corruption_specs, list) or not corruption_specs:
+        raise RuntimeError("configuration does not define corruption families")
+    expected_conditions: set[tuple[str, str, str, int]] = set()
+    for specification in corruption_specs:
+        if not isinstance(specification, dict):
+            raise RuntimeError("corruption specification must be an object")
+        family = str(specification.get("family", ""))
+        replicates = int(specification.get("replicates", 1))
+        severities = specification.get("severities")
+        if replicates <= 0 or not isinstance(severities, list) or not severities:
+            raise RuntimeError(f"invalid corruption grid for {family!r}")
+        for severity in severities:
+            if not isinstance(severity, dict):
+                raise RuntimeError(f"invalid severity in {family!r}")
+            severity_id = str(severity.get("id", ""))
+            parameters = normalize_parameters(family, severity.get("params"))
+            for replicate in range(replicates):
+                condition = (
+                    family,
+                    severity_id,
+                    canonical_json(parameters),
+                    replicate,
+                )
+                if condition in expected_conditions:
+                    raise RuntimeError(f"duplicate configured condition: {condition}")
+                expected_conditions.add(condition)
+
+    expected_clean = {
+        (variant, image_id) for variant in variant_ids for image_id in image_ids
+    }
+    expected_pairs = {
+        (variant, image_id, *condition, mode)
+        for variant in variant_ids
+        for image_id in image_ids
+        for condition in expected_conditions
+        for mode in ("fixed_clean", "recomputed")
+    }
+    observed_clean: list[tuple[str, str]] = []
+    observed_pairs: list[tuple[Any, ...]] = []
+    for record in records:
+        mode = str(record.get("mode", ""))
+        variant = variant_label(record)
+        image_id = str(record.get("image_id", ""))
+        if mode == "clean":
+            observed_clean.append((variant, image_id))
+            continue
+        if mode in {"fixed_clean", "recomputed"}:
+            condition = normalized_condition(record)
+            observed_pairs.append(
+                (
+                    variant,
+                    image_id,
+                    condition["family"],
+                    condition["severity_id"],
+                    canonical_json(condition["parameters"]),
+                    int(record["replicate"]),
+                    mode,
+                )
+            )
+            continue
+        raise RuntimeError(f"unexpected mode in record grid: {mode!r}")
+
+    clean_set = set(observed_clean)
+    pair_set = set(observed_pairs)
+    clean_missing = sorted(expected_clean - clean_set)
+    clean_extra = sorted(clean_set - expected_clean)
+    pair_missing = sorted(expected_pairs - pair_set)
+    pair_extra = sorted(pair_set - expected_pairs)
+    duplicates = (len(observed_clean) - len(clean_set)) + (
+        len(observed_pairs) - len(pair_set)
+    )
+    if clean_missing or clean_extra or pair_missing or pair_extra or duplicates:
+        raise RuntimeError(
+            "record grid differs from configuration: "
+            f"missing_clean={len(clean_missing)}, extra_clean={len(clean_extra)}, "
+            f"missing_pairs={len(pair_missing)}, extra_pairs={len(pair_extra)}, "
+            f"duplicates={duplicates}; "
+            f"examples={clean_missing[:1] + clean_extra[:1] + pair_missing[:1] + pair_extra[:1]}"
+        )
+
+
 def pair_records(records: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
     """Return strict fixed/recomputed pairs, failing on missing or inconsistent records."""
 
@@ -140,6 +293,7 @@ def pair_records(records: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
             condition["family"],
             condition["severity_id"],
             canonical_json(condition["parameters"]),
+            condition["units"],
             int(record["replicate"]),
             condition["schema_version"],
         )
@@ -213,7 +367,7 @@ def pair_records(records: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
                 "severity_id": condition["severity_id"],
                 "corruption_params": canonical_json(condition["parameters"]),
                 "corruption_units": condition["units"],
-                "replicate": key[5],
+                "replicate": key[6],
                 "random_seed": fixed.get("random_seed"),
                 "corrupted_image_sha256": fixed.get("corrupted_image_sha256", ""),
                 "fixed_stability_ari": float(fixed["stability_ari"]),

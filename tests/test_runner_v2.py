@@ -1,3 +1,4 @@
+import hashlib
 import json
 import sys
 import tempfile
@@ -13,6 +14,7 @@ from run_bsds_robustness_v2 import (  # noqa: E402
     normalize_corruption_specs,
     prepare_metadata,
     stable_seed,
+    verify_dataset_files,
 )
 from monogrowlab.datasets import list_bsds500_ids  # noqa: E402
 
@@ -135,7 +137,8 @@ class RunnerV2Tests(unittest.TestCase):
         }
         index, summary = dataset_file_index(payload, "data/root")
         self.assertEqual(index["images/val/1.jpg"]["role"], "image")
-        self.assertTrue(summary["per_file_hashes_verified"])
+        self.assertTrue(summary["per_file_hashes_declared"])
+        self.assertNotIn("per_file_hashes_verified", summary)
         with self.assertRaisesRegex(ValueError, "root differs"):
             dataset_file_index(payload, "other/root")
         duplicate = {**payload, "files": payload["files"] * 2}
@@ -143,6 +146,33 @@ class RunnerV2Tests(unittest.TestCase):
             dataset_file_index(duplicate, "data/root")
         with self.assertRaisesRegex(ValueError, "require dataset manifest schema_version=2"):
             dataset_file_index({"schema_version": 1}, "data/root")
+
+    def test_full_manifest_verification_precedes_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "images" / "val" / "1.jpg"
+            path.parent.mkdir(parents=True)
+            path.write_bytes(b"abc")
+            payload = {
+                "schema_version": 2,
+                "dataset_root": "data/root",
+                "files": [
+                    {
+                        "path": "images/val/1.jpg",
+                        "role": "image",
+                        "bytes": 3,
+                        "sha256": hashlib.sha256(b"abc").hexdigest(),
+                    }
+                ],
+            }
+            index, declaration = dataset_file_index(payload, "data/root")
+            verified = verify_dataset_files(root, index, declaration)
+            self.assertTrue(verified["per_file_hashes_verified"])
+            self.assertEqual(verified["verified_file_count"], 1)
+            self.assertEqual(verified["verification_scope"], "entire_manifest_before_run")
+            path.write_bytes(b"abd")
+            with self.assertRaisesRegex(RuntimeError, "hash differs"):
+                verify_dataset_files(root, index, declaration)
 
 
 if __name__ == "__main__":
