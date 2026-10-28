@@ -87,13 +87,15 @@ Run `monogrowlab --help` to list all commands.
 
 ## Local web workbench
 
-After installing the package and preparing BSDS500, double-click:
+After installing the package and preparing BSDS500, start the workbench with the virtual environment
+activated and the checkout as the working directory:
 
-```text
-apps\local-web-v0.1\start.cmd
+```powershell
+python apps\local-web-v0.1\server.py --project-root . --open-browser
 ```
 
-The launcher opens `http://127.0.0.1:8767/`. The interface creates isolated exploratory jobs under `ui_runs/`, calls the same schema-v2 runner and analysis scripts as the CLI, and exposes the exact configuration and output tables. It binds only to loopback and is not intended for public hosting. See `apps/local-web-v0.1/README.md` for scope and security details.
+The existing `apps\local-web-v0.1\start.cmd` launcher uses the registered Python 3.13 interpreter and its
+installed dependencies. The workbench opens `http://127.0.0.1:8767/`. The interface creates isolated exploratory jobs under `ui_runs/`, calls the same schema-v2 runner and analysis scripts as the CLI, and exposes the exact configuration and output tables. It binds only to loopback and is not intended for public hosting. See `apps/local-web-v0.1/README.md` for scope and security details.
 
 ## Archived experiment configurations
 
@@ -116,7 +118,7 @@ python -m unittest test_server -v
 Pop-Location
 ```
 
-The current release contains 61 core tests and 15 web-workbench tests.
+Version 0.1.2 contains 74 core tests and 15 web-workbench tests.
 
 ## Repository structure
 
@@ -138,3 +140,16 @@ BSDS500 remains governed by its original distribution terms and is not redistrib
 ## License
 
 MonoGrowLab is released under the MIT License. See [`LICENSE`](LICENSE).
+
+## Supplementary seed-state analyses
+
+The supplementary runner evaluates cardinality-matched seed sources or single-factor seed-detection/growth sensitivity. Its input project contains the validation configuration, dataset manifest and fetched BSDS500 data; it can be this checkout or an explicitly selected project. Each output must be a new subdirectory of `results/`. For example, after fetching data into this checkout:
+
+```text
+python experiments/run_revision_supplement.py --source-root . --kind sensitivity --output-dir results/local_sensitivity
+```
+
+Sensitivity exports retain every planned grid row. Empty detector states and unavailable clean references have explicit status values and null metrics, never manufactured zero scores. Incomplete image/family contrasts are retained as unavailable; group effects and intervals require all ten prescribed images. See `SENSITIVITY_VALIDITY.md`. Other exceptions still stop the run, and immutable metadata prevents cross-version resume.
+
+
+The completed supplementary records, image-level tables and full parameter grid are included in `evidence/seed_state/`. See [`docs/SEED_STATE_ANALYSES.md`](docs/SEED_STATE_ANALYSES.md) for reproduction commands, source snapshots and portable metadata provenance. The original primary, strict-policy and held-out records remain byte-identical. Version 0.1.2 adds supplementary utilities and explicit empty-state handling; the default CLI, local web workflow, numerical kernels and metric definitions are retained.

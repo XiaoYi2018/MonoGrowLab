@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "grid_complete": true,
+  "validity_counts": {
+    "ok": 2810,
+    "no_seeds": 6,
+    "no_clean_reference": 84
+  },
+  "all_predictions_defined": false,
+  "finished_utc": "2026-10-25T11:50:00.079782+00:00",
+  "kind": "sensitivity",
+  "pilot": false,
+  "records": 2900,
+  "expected_records": 2900,
+  "seed_diagnostic_records": 0,
+  "written": 2900,
+  "skipped": 0,
+  "records_sha256": "13ae3147c034ceb5b8ea96616f42cc7a5ede650c15f9d59e5d1e68696876652c",
+  "metadata_sha256": "2c59e6edf509a370987585657ac2c32d58f3b343df1f281dec14bbdf97fd69b6",
+  "source_hashes_unchanged": true,
+  "dataset_integrity": {
+    "manifest_schema_version": 2,
+    "per_file_hashes_declared": true,
+    "file_count": 1000,
+    "scope": "all_manifest_files",
+    "per_file_hashes_verified": true
+  },
+  "elapsed_seconds": 6063.818870200019,
+  "archive_derivation": {
+    "runtime_done_sha256": "b74620221b7549323516fe0ba5dba259fa121782749331bffe2fbfc299b3c5ca",
+    "runtime_metadata_sha256": "5daa249bce76cde2d9c99c7e7532ee3a46a0d1ddd3307a5ac13618b93d2ac61e",
+    "kind": "portable_metadata_link",
+    "note": "The metadata hash points to the portable copy. Source-integrity and dataset checks describe the archived execution, not a resume check with this checkout."
+  }
+}

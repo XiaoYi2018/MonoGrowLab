@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "matched",
+    "records_sha256": "909cd142c4e9bb55763ed5fb92a3b482b45a3f129d6226613b133768ba7b026c",
+    "runtime_metadata_sha256": "980198bbf45f3547bc235c4049a60495ca00943d9559745859d37f9ac229b860",
+    "portable_metadata_sha256": "52adc4f0e49ba66d0a22b19a3390aed9f515f5ae8a5bb6f957cf19edff136ea6",
+    "runtime_done_sha256": "98b919ead3fbdb1f9a6a5c540a09f1b77a1e09fa34cbd6f98da2416278fe476f",
+    "portable_done_sha256": "c5ee60ff3a0e71469cd20d151ae5b9d4a34bcb316ba7e6ce91e9677caf8dbf8f",
+    "source_files_verified": 40
+  },
+  {
+    "kind": "sensitivity",
+    "records_sha256": "13ae3147c034ceb5b8ea96616f42cc7a5ede650c15f9d59e5d1e68696876652c",
+    "runtime_metadata_sha256": "5daa249bce76cde2d9c99c7e7532ee3a46a0d1ddd3307a5ac13618b93d2ac61e",
+    "portable_metadata_sha256": "2c59e6edf509a370987585657ac2c32d58f3b343df1f281dec14bbdf97fd69b6",
+    "runtime_done_sha256": "b74620221b7549323516fe0ba5dba259fa121782749331bffe2fbfc299b3c5ca",
+    "portable_done_sha256": "8ddc3cddc21613b547a1c69f0e3e1cf0ef5c4e34feefb279650c4280964fb645",
+    "source_files_verified": 41
+  }
+]

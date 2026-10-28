@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "finished_utc": "2026-10-25T09:10:41.566180+00:00",
+  "kind": "matched",
+  "pilot": false,
+  "records": 1680,
+  "expected_records": 1680,
+  "seed_diagnostic_records": 560,
+  "written": 1680,
+  "skipped": 0,
+  "records_sha256": "909cd142c4e9bb55763ed5fb92a3b482b45a3f129d6226613b133768ba7b026c",
+  "metadata_sha256": "52adc4f0e49ba66d0a22b19a3390aed9f515f5ae8a5bb6f957cf19edff136ea6",
+  "source_hashes_unchanged": true,
+  "dataset_integrity": {
+    "manifest_schema_version": 2,
+    "per_file_hashes_declared": true,
+    "file_count": 1000,
+    "scope": "all_manifest_files"
+  },
+  "elapsed_seconds": 14560.317326899996,
+  "seed_diagnostics_sha256": "be3cfb4ef12272d9be27829ce740d7e4b213dc0670cf83922ad355cea9219bf8",
+  "archive_derivation": {
+    "runtime_done_sha256": "98b919ead3fbdb1f9a6a5c540a09f1b77a1e09fa34cbd6f98da2416278fe476f",
+    "runtime_metadata_sha256": "980198bbf45f3547bc235c4049a60495ca00943d9559745859d37f9ac229b860",
+    "kind": "portable_metadata_link",
+    "note": "The metadata hash points to the portable copy. Source-integrity and dataset checks describe the archived execution, not a resume check with this checkout."
+  }
+}

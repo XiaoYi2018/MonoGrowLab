@@ -1,0 +1,315 @@
+{
+  "created_utc": "2026-10-25T05:08:00.882000+00:00",
+  "immutable": {
+    "protocol": {
+      "supplement_schema_version": 1,
+      "analysis_role": "revision_added_secondary",
+      "kind": "matched",
+      "pilot": false,
+      "source_config_sha256": "832e7f602b60ae200115022ab722e29d1b90eefacaac6bded40fc73dd0ffc72a",
+      "source_config": {
+        "schema_version": 2,
+        "dataset_root": "data/raw/BSDS500_official_2013/BSR/BSDS500/data",
+        "dataset_manifest": "data/manifests/bsds500_official_2013_files_v2.json",
+        "split": "val",
+        "image_ids": [
+          "101085",
+          "101087",
+          "102061",
+          "103070",
+          "105025",
+          "106024",
+          "108005",
+          "108070",
+          "108082",
+          "109053"
+        ],
+        "max_dimension": 160,
+        "variants": [
+          {
+            "id": "clerg-gaussian1",
+            "algorithm": {
+              "name": "clerg",
+              "eps": 1.0,
+              "smooth_iters": 0
+            },
+            "seed_strategy": {
+              "name": "gaussian_strict",
+              "sigma": 1.0
+            }
+          },
+          {
+            "id": "adams-gaussian2",
+            "algorithm": {
+              "name": "adams1994"
+            },
+            "seed_strategy": {
+              "name": "gaussian_strict",
+              "sigma": 2.0
+            }
+          },
+          {
+            "id": "fan2005-gaussian2",
+            "algorithm": {
+              "name": "fan2005"
+            },
+            "seed_strategy": {
+              "name": "gaussian_strict",
+              "sigma": 2.0
+            }
+          },
+          {
+            "id": "levelset-gaussian2",
+            "algorithm": {
+              "name": "levelset2004"
+            },
+            "seed_strategy": {
+              "name": "gaussian_strict",
+              "sigma": 2.0
+            }
+          }
+        ],
+        "corruptions": [
+          {
+            "family": "gaussian_noise",
+            "replicates": 2,
+            "base_seed": 20260917,
+            "severities": [
+              {
+                "id": "sigma_2",
+                "params": {
+                  "sigma": 2.0
+                }
+              },
+              {
+                "id": "sigma_8",
+                "params": {
+                  "sigma": 8.0
+                }
+              }
+            ]
+          },
+          {
+            "family": "gaussian_blur",
+            "replicates": 1,
+            "severities": [
+              {
+                "id": "sigma_0p5",
+                "params": {
+                  "sigma_px": 0.5,
+                  "truncate": 4.0,
+                  "boundary_mode": "reflect"
+                }
+              },
+              {
+                "id": "sigma_1p5",
+                "params": {
+                  "sigma_px": 1.5,
+                  "truncate": 4.0,
+                  "boundary_mode": "reflect"
+                }
+              }
+            ]
+          },
+          {
+            "family": "salt_pepper",
+            "replicates": 2,
+            "base_seed": 20260918,
+            "severities": [
+              {
+                "id": "amount_0p005",
+                "params": {
+                  "amount": 0.005,
+                  "salt_fraction": 0.5,
+                  "sampling": "without_replacement"
+                }
+              },
+              {
+                "id": "amount_0p02",
+                "params": {
+                  "amount": 0.02,
+                  "salt_fraction": 0.5,
+                  "sampling": "without_replacement"
+                }
+              }
+            ]
+          },
+          {
+            "family": "jpeg",
+            "replicates": 1,
+            "severities": [
+              {
+                "id": "quality_90",
+                "params": {
+                  "quality": 90,
+                  "subsampling": 0,
+                  "optimize": false,
+                  "progressive": false
+                }
+              },
+              {
+                "id": "quality_50",
+                "params": {
+                  "quality": 50,
+                  "subsampling": 0,
+                  "optimize": false,
+                  "progressive": false
+                }
+              }
+            ]
+          },
+          {
+            "family": "brightness_scale",
+            "replicates": 1,
+            "severities": [
+              {
+                "id": "factor_0p8",
+                "params": {
+                  "factor": 0.8,
+                  "rounding": "nearest_even",
+                  "clipping": "uint8_0_255"
+                }
+              },
+              {
+                "id": "factor_1p2",
+                "params": {
+                  "factor": 1.2,
+                  "rounding": "nearest_even",
+                  "clipping": "uint8_0_255"
+                }
+              }
+            ]
+          }
+        ],
+        "seed_modes": [
+          "fixed_clean",
+          "recomputed"
+        ],
+        "interpretation": "schema-v2 strict-manifest multi-corruption development experiment on ten explicit BSDS500 validation images; not an official BSDS500 test-set benchmark result",
+        "output": "experiments/runs/bsds500_multicorruption_v2_validation_10x160_r2.jsonl"
+      },
+      "image_ids": [
+        "101085",
+        "101087",
+        "102061",
+        "103070",
+        "105025",
+        "106024",
+        "108005",
+        "108070",
+        "108082",
+        "109053"
+      ],
+      "variants": [
+        {
+          "id": "clerg-gaussian1",
+          "algorithm": {
+            "name": "clerg",
+            "eps": 1.0,
+            "smooth_iters": 0
+          },
+          "seed_strategy": {
+            "name": "gaussian_strict",
+            "sigma": 1.0
+          }
+        },
+        {
+          "id": "adams-gaussian2",
+          "algorithm": {
+            "name": "adams1994"
+          },
+          "seed_strategy": {
+            "name": "gaussian_strict",
+            "sigma": 2.0
+          }
+        },
+        {
+          "id": "fan2005-gaussian2",
+          "algorithm": {
+            "name": "fan2005"
+          },
+          "seed_strategy": {
+            "name": "gaussian_strict",
+            "sigma": 2.0
+          }
+        },
+        {
+          "id": "levelset-gaussian2",
+          "algorithm": {
+            "name": "levelset2004"
+          },
+          "seed_strategy": {
+            "name": "gaussian_strict",
+            "sigma": 2.0
+          }
+        }
+      ],
+      "matched_draws": 3,
+      "match_type": "per-sign equal cardinality, independent seeded subsets without replacement",
+      "reference": "one matched-clean reference shared by both matched branches",
+      "spatial_diagnostic": "coordinate overlap, symmetric nearest distances, occupied 4x4 bins, within-3px area",
+      "no_retuning": true,
+      "no_heldout_run": true
+    },
+    "protocol_sha256": "0fa5c4338bc5337377446bdcab372ca05ffec1d34b0d88c0dc409333c34ea9fd",
+    "package_hashes": {
+      "experiments/analyze_attribution.py": "807f0310c38aecc9ed86cf714c3193ac9cf20d1e10b1f0baa6b8d88a725e5e61",
+      "experiments/analyze_attribution_v2.py": "0c3359151071acfdee8375b3946abfaecdd353a7924d6cd01de15f0ff18f2420",
+      "experiments/build_bsds500_file_manifest.py": "8ab716971e33b0feee2ffc7b31808f34ff8e44b2ee77f2fb4ce51b075d84a0ec",
+      "experiments/fetch_bsds500.py": "9ec2c7fa61f562f295010e6c3bebd8e199923370db2fc4b30963aac5d4226687",
+      "experiments/plot_attribution_v2.py": "d8e336c74a71983c0a86d37004d78e9213a0616913db560fbe5f3566e1b8efaf",
+      "experiments/render_html_report_v2.py": "e52b61b3b33b3141d1f7d46dcefb8b7cba3d6954a451563f747ce74abfa5952f",
+      "experiments/run_bsds_robustness_v2.py": "f6d978ef8d9d8f05b8eba72059752012e28a9c2a60e34d1728c3b0b6236940fc",
+      "experiments/run_revision_supplement.py": "7e1e0272e46718acefdff4a00764e243205be9798511c6c9f2eb27b73b9a7694",
+      "experiments/summarize_results_v2.py": "f548092bdac55782c72cadd3152fafbad5926e7329e3912ba7f984b1b83d6898",
+      "legacy_reference/core/clerg_e.py": "0fbd77bfe1cdb8d96238546f962ea3e8638c5d4aacba8d88eb5fd7e1348f6c9f",
+      "legacy_reference/core/extrema_single_symm_scan.py": "2a78a699b3753678db786f013c395598cf8e1a16137ef6f55fc3c25e0aa4fb69",
+      "legacy_reference/core/srg_2004_level_set.py": "5d6a027c37fd1d6483a5afea5285893841d7c8a3dd08d2aa5f2ac8720457259d",
+      "legacy_reference/core/srg_adams1994_full_quasi.py": "0510a564b61362951eec509a1af68f48e4cccb668c02bc693e32d0f8c43f6217",
+      "legacy_reference/core/srg_fan2005_regular.py": "80995ad0a075d8f3614571d4b17858f991b37e1d3a881de14446f4d4b6803451",
+      "legacy_reference/core/srg_fan2015_stabilized.py": "305a03514af8e303c28a44aae21bde23dfe6d4dd402a73540cbf7ee0ebf55c58",
+      "src/monogrowlab/__init__.py": "976c60f373cbe3404cbfaa399f91705b48c4a9c48e0da1b3af9e1b385bc5c420",
+      "src/monogrowlab/cli.py": "408ef8a5159cdcf348edbc0bca35269b9de8b237030ec327dba080f9791f98f0",
+      "src/monogrowlab/corruptions.py": "5d6fce3fd7e7fdc159b1246fd8620fa1f02b1b44fa67b695b0c698bc95f3404f",
+      "src/monogrowlab/corruptions_v2.py": "8ef87851a37b19d1135ecf4e0be187c5f57e1afa285464a484b8d5f21de8c37d",
+      "src/monogrowlab/datasets.py": "e5f9ce973504b26db5f1212b20e0c172ccbbe3247e08512f336b2707e2f7aa37",
+      "src/monogrowlab/evaluation.py": "7899dc0ae4eee989d8b03a5621c498adfd34a023002ff6d8b4689e65ab2929b6",
+      "src/monogrowlab/experiment_schema.py": "de024278014e21898c8bd4bd22c4ada88e666fcbfc765e012324528930897441",
+      "src/monogrowlab/legacy_adapter.py": "21d2714fbc82fa73431eae9309a1265f4c01f1464b8a83121467fb7793aa809f",
+      "src/monogrowlab/metrics.py": "84af7371e78ab839f79fd677e09277c09389a16725f727380cd80d753f86d7e9",
+      "src/monogrowlab/reporting.py": "28e612cf98ea68ce154ebe967480011e6ec129c174585a7162832dce6dca12a6",
+      "src/monogrowlab/seed_controls.py": "0b6bfba682454128e7094d2e291756c620b36b8abcfae33dc3137784e5e4e44e",
+      "src/monogrowlab/synthetic.py": "5360680ed8c13c1c9ae0f8acb5ca3f0762370e6df64963a156460d3178c865e4",
+      "tests/test_attribution_analysis.py": "1422fc14904fce0e9e023a38f866c4a7dcfa440232072bc452c98b046f438629",
+      "tests/test_attribution_analysis_v2.py": "c98519c315b1b8dc908040ab6b291565d22fcb5f114b509b8a41b646e62a39ff",
+      "tests/test_cli.py": "8f824aeb703218fa78b7763e46257225568e718ebb3fa46578518218bfa96781",
+      "tests/test_corruptions.py": "885555a9fc8f881c66e23d9ac8cd59a3a8c04b87d95a08c3427dff9790d54159",
+      "tests/test_corruptions_v2.py": "9819ae8cbe1dbf44a8e3fdb341796dcf55c6c875ecab2ae0f25a38eae61080c7",
+      "tests/test_dataset_manifest.py": "8196c2d275fa7b4878bfeac84319549ee8db6566abaa9acf743ac6cb3f2413ea",
+      "tests/test_experiment_schema.py": "f803ee833a22b510c8791b717aea0aa719febb996f790386cc2048cb0ae7d7a9",
+      "tests/test_metrics.py": "f3ec985bb0d5731fcc75aa5cb2015da328ea08b0feb8240193a0078639f9c335",
+      "tests/test_plot_attribution_v2.py": "1de26cca3f5053f7158e1b4f98533ae24c1a79abeeac85d703f95229b81001d0",
+      "tests/test_reporting.py": "89de3cebafa14e417a4d58beee82a380019136490ab1252a7886143b334ec74a",
+      "tests/test_runner_v2.py": "3d1573df70bfd1f1d863aa007c08d4edb918ae739bd166a739b54fbcec730948",
+      "tests/test_seed_controls.py": "d06720fa01d01722db081fd9c507e81a154309cb9760e0612f94bbfae4a9444b",
+      "tests/test_seed_strategies.py": "71d9e4ae425c43664d120c4a64942c5692c14b3ce3c2040d291fcafd35c1aa69"
+    },
+    "source_root": "input-project",
+    "revision_root": "code-checkout",
+    "python": "3.13.5",
+    "numpy": "2.1.3",
+    "scipy": "1.15.3",
+    "pillow": "11.1.0",
+    "skimage": "0.25.0",
+    "dataset_manifest_sha256": "c6a49b978ef2df82b05bbb12c7a55e03e8778f96c4a29aeb15760acbb83c3418"
+  },
+  "archive_derivation": {
+    "kind": "portable_path_copy",
+    "runtime_metadata_sha256": "980198bbf45f3547bc235c4049a60495ca00943d9559745859d37f9ac229b860",
+    "changed_fields": [
+      "immutable.source_root",
+      "immutable.revision_root"
+    ],
+    "note": "Only machine-specific root coordinates are replaced; scientific protocol and source hashes are unchanged."
+  }
+}

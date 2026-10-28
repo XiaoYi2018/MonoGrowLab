@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "records": 1680,
+  "seed_diagnostic_records": 560,
+  "condition_pairs": 560,
+  "draws_per_condition": 3,
+  "image_level_rows": 200,
+  "common_reference_mismatches": 0,
+  "contrast_recalculation_mismatches": 0,
+  "original_ari_reconstruction_max_error": 5.551115123125783e-17,
+  "bootstrap_iterations": 10000,
+  "analysis_role": "revision_added_secondary",
+  "new_primary_tests": false,
+  "interpretation": "Matched-source sensitivity uses its own common clean reference. It is not a causal decomposition of the original gap; seed coordinates and initial intensities remain parts of the replaced state.",
+  "inputs": {
+    "matched_records_sha256": "909cd142c4e9bb55763ed5fb92a3b482b45a3f129d6226613b133768ba7b026c",
+    "diagnostics_sha256": "be3cfb4ef12272d9be27829ce740d7e4b213dc0670cf83922ad355cea9219bf8",
+    "baseline_records_sha256": "f4739c52849a7ed4d8995c5ac1cd3d142ed722f2edd398493e64092555df824a"
+  }
+}

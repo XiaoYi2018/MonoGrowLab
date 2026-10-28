@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "new_records": 2900,
+  "clean_records": 100,
+  "new_pairs": 1400,
+  "new_variants": 10,
+  "baseline_records_reused": 1160,
+  "unique_family_groups": 70,
+  "image_level_rows": 700,
+  "parameter_axis_rows": 75,
+  "new_primary_tests": false,
+  "analysis_role": "revision_added_secondary",
+  "bootstrap_iterations": 10000,
+  "no_retuning": true,
+  "no_heldout_run": true,
+  "validity_counts": {
+    "ok": 2810,
+    "no_seeds": 6,
+    "no_clean_reference": 84
+  },
+  "undefined_pairs": 45,
+  "fully_defined_new_family_groups": 35,
+  "undefined_policy": "No partial averaging: missing conditions propagate through severity/image; group means and CIs require all10 images.",
+  "inputs": {
+    "sensitivity_sha256": "13ae3147c034ceb5b8ea96616f42cc7a5ede650c15f9d59e5d1e68696876652c",
+    "baseline_sha256": "f4739c52849a7ed4d8995c5ac1cd3d142ed722f2edd398493e64092555df824a",
+    "frozen_baseline_inference_sha256": "d9b054c557b890825fd33fedaa27027287a3caf6f871ce634d88d293c0def4ad"
+  }
+}
